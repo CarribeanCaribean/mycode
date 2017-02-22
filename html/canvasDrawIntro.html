@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Canvas绘图详解</title>
+	<link rel="stylesheet" href="">
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<canvas id="canvas">
+		
+	</canvas>
+	<script type="text/javascript">
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+
+		canvas.width=1200;
+		canvas.height=1200;
+
+		context.fillStyle="black";
+		context.fillRect(0,0,canvas.width,canvas.height);
+
+		context.beginPath()
+		context.moveTo(50,50);
+		context.lineTo(300,50);
+		context.strokeStyle="#FFABE5";
+		context.stroke();
+
+		context.beginPath()
+		context.lineTo(150,150);
+		context.lineTo(300,150);
+		context.lineTo(200,200);
+		context.strokeStyle="#C7F5FF";
+		context.lineWidth=10;
+		context.stroke();
+
+		context.beginPath();
+		context.lineTo(600,150);
+		context.lineTo(600,150);
+		context.lineTo(300,300);
+		context.lineTo(500,500);
+		context.closePath();
+		context.strokeStyle="#F6FCAE";
+		context.fillStyle="#D89FFF";
+		context.lineWidth=10;
+		context.stroke();
+		context.fill();
+
+		// 直接绘制矩形 rect()
+		context.beginPath();
+		context.rect(450,50,200,150);
+		context.strokeStyle="#1C226B";
+		context.fillStyle="rgba(62,49,174,0.75)";
+		context.lineWidth=10;
+		context.stroke();
+		context.fill();
+
+		//绘制星形，每个星星的定点可以理解为圆上的点
+		for (var i = 0; i <200; i++) {
+			var r=Math.random()*10+10;
+			var x=Math.random()*canvas.width;
+			var y=Math.random()*canvas.height;
+			var a=Math.random()*360;
+			drawStar(context,r,r/2.0,x,y,a);
+		}
+		
+
+		function drawStar (cxt,r,R,x,y,rot) {
+			cxt.beginPath();
+			for (var i =0; i <5; i++) {
+				cxt.lineTo(Math.cos((18+i*72-rot)/180*Math.PI)*R+x,-Math.sin((18+i*72-rot)/180*Math.PI)*R+y-400);
+				cxt.lineTo(Math.cos((54+i*72-rot)/180*Math.PI)*r+x,-Math.sin((54+i*72-rot)/180*Math.PI)*r+y-400)
+			}
+			cxt.closePath();
+			cxt.fillStyle='#F5E180';
+			cxt.lineWidth=10;
+			cxt.fill();
+		}
+
+		//绘制圆角矩形
+		drawRoundRect(context,50,300,200,100,20)
+		function drawRoundRect(cxt,x,y,width,height,radius){
+			cxt.save();
+			cxt.translate(x,y);
+			pathRoundRect(cxt,width,height,radius);
+			cxt.strokeStyle="#36D1C4";
+			cxt.stroke();
+			cxt.restore();
+
+		}
+		function pathRoundRect (cxt,width,height,radius) {
+			cxt.beginPath();
+			cxt.arc(width-radius,height-radius,radius,0,Math.PI/2);
+			cxt.lineTo(radius,height);
+			cxt.arc(radius,height-radius,radius,Math.PI/2,Math.PI);
+			cxt.lineTo(0,radius);
+			cxt.arc(radius,radius,radius,Math.PI,Math.PI*3/2);
+			cxt.lineTo(width-radius,0);
+			cxt.arc(width-radius,radius,radius,Math.PI*3/2,Math.PI*2);
+			cxt.closePath();
+		}
+
+		//绘制月亮
+		fillMoon(context,2,700,200,100,30);
+		function fillMoon (cxt,d,x,y,R,rot,fillColor) {
+			cxt.save();
+			cxt.translate(x,y);
+			cxt.rotate(rot*Math.PI/180);
+			cxt.scale(R,R);
+			pathMoon(cxt,d);
+			cxt.fillStyle=fillColor||"#fb5";
+			cxt.fill();
+			cxt.restore();
+		}
+		function pathMoon (cxt,d) {
+			cxt.beginPath();
+			cxt.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+			cxt.moveTo(0,-1);
+			// cxt.arcTo(d,0,0,1,dis(0,-1,d,0)/d);
+			//二次赛贝尔曲线
+			cxt.quadraticCurveTo(1.2,0,0,1);
+			cxt.closePath();
+		}
+		function dis(x1,y1,x2,y2){
+			return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+		}
+		drawLand(context);
+		function drawLand (cxt) {
+			cxt.save();
+
+			cxt.beginPath();
+			cxt.moveTo(0,800);
+			cxt.bezierCurveTo(540,600,660,1000,1200,800);
+			cxt.lineTo(1200,1200);
+			cxt.lineTo(0,1200);
+			cxt.closePath();
+
+			var landStyle=cxt.createLinearGradient(0,600,1200,1200);
+			landStyle.addColorStop(0.0,'#030');
+			landStyle.addColorStop(1.0,'#580');
+			cxt.fillStyle=landStyle;
+
+			cxt.fill();
+			cxt.restore();
+		}
+		//文字,出色字,彩色渐变字,图片填充字,获取字体长度measureText()
+		context.font="italic bold 40px Arial";
+
+		context.fillStyle="#fff";
+		context.fillText('Moon,Star,Land!!',200,900);
+
+		context.lineWidth=1;
+		context.strokeStyle="#fff";
+		context.strokeText('Stroke Text!!',600,900)
+
+		//阴影shadowColor；shadowBlur；shadowOffsetX；shadowOffsetY
+		//设置绘制图形当前的透明值。
+		//绘制图形的相互遮挡顺序包括相互遮挡，和，并，或等。
+		//剪辑区域clip，把当前的canvas绘制区域剪切
+		//非零环绕原则，解决复杂图形填色问题，为零不填充
+		context.beginPath();
+		context.arc(450,1000,80,0,Math.PI*2,false);
+		context.arc(450,1000,50,0,Math.PI*2,true);
+		context.closePath();
+
+		context.fillStyle="yellow";
+		context.shadowColor="gray";
+		context.shadowOffsetX=10;
+		context.shadowOffsetY=10;
+		context.shadowBlur=10;
+		context.fill();
+		//清空画布clearRect
+		//isPointInPath() 可用于判断鼠标是否在当前的路径内
+		//getBoundingClientRect()获取canvas的位置信息如left，top
+		//自己编写api CanvasRenderingContext2D.prototype.functionName=function(){}
+		//使用时候：context.functionName
+		//canvas图形库canvasplus；Artisan JS；Rgraph
+	</script>
+</body>
+</html>
