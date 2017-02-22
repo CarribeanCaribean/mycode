@@ -1,0 +1,7 @@
+assert--断言
+   --该模块用于编写程序的单元测试用例，通过require（‘assert’）调用
+assert.fail(actual,expected,message,operator)
+   --抛出一个异常，显示用例的实际值（actual）和期望值（expected），通过分隔符（operator）隔开
+assert(value,message),assert.ok(value,[message])
+   --测试结果是否为真（true），相当于assert.equal(true,!!value,message);
+

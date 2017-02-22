@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>angularTest</title>
+	<script src="//cdn.bootcss.com/angular.js/2.0.0-beta.17/angular2-all.umd.dev.js"></script>
+</head>
+<body>
+<div ng-app="myapp" ng-init="firstName01='John01';names01=['jani','hege','kai']" ng-controller="myctrl">
+<!-- ng-app不能省略，少了则下面的表达式不会计算只是直接显示 -->
+	<p>My first expression:{{5+5}}</p>
+	<p>my first expression:<span ng-bind="5+5"></span></p>
+	<!-- {{}}的数据绑定方法相当于ng-bind -->
+	<p>
+		firstName01:<input type="text" name="" ng-model="firstName01"/>
+		firstName:<input type="text" name="" ng-model="firstName"/>
+		lastName:<input type="text" name="" ng-model="lastName"/>
+	</p>
+	<input type="number" ng-model="quantity" name=""/>
+	<input type="number" ng-model="price" name=""/>
+	<p>You wrote:{{firstName}}</p>
+	<p>full name:{{fullName()}}</p>
+	<p>the name is:{{lastName|uppercase}}</p>
+	<p>the name is:{{lastName|lowercase}}</p>
+	<p>Total={{(quantity*price)|currency}}</p>
+	<ul>
+		<li ng-repeat="x in names01">
+			{{x}}
+		</li>
+	</ul>
+	<ul>
+		<li ng-repeat="x in names">
+			{{x.name+','+x.country}}
+		</li>
+	</ul>
+	<ul>
+		<li ng-repeat="x in names|orderBy:'country'">
+			{{x.name+','+x.country}}
+		</li>
+	</ul>
+	
+</div>
+<div ng-app="" ng-controller="namesctrl">
+	<p><input type="text" ng-model="test" name=""></p>
+	<ul>
+		<li ng-repeat="x in names|filter:test|orderBy:'country'">
+			{{(x.name|uppercase)+','+x.country}}
+		</li>
+	</ul>
+</div>
+<div ng-app="myabb" ng-controller="customersCtrl">
+	<ul>
+		<li ng-repeat="x in names">
+			{{x.Name+','+x.Country}}
+		</li>
+	</ul>
+	<table>
+		<tbody>
+			<tr ng-repeat="x in names|orderBy：'Country'">
+				<td>{{$index+1}}</td>
+				<td ng-if="$odd" style="background-color: #f1f1f1;">{{x.Name}}</td>
+				<td ng-if="$even">{{x.Country|uppercase}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div ng-app="">
+	<p>
+		<button ng-disabled="myswitch">Click Me!</button>
+	</p>
+	<p>
+		<input type="checkbox" ng-model="myswitch" name=""/>button
+	</p>
+</div>
+<script>
+	var app=angular.module('myapp',[]);
+	app.controller('myctrl',function($scope){
+		$scope.firstName="John";
+		$scope.lastName="Doe";
+		$scope.fullName=function(){
+			return $scope.firstName+""+$scope.lastName;
+		}
+		$scope.names=[
+			{name:'jani',country:'norway'},
+			{name:'hege',country:'sweden'},
+			{name:'kai',country:'denmark'}
+		]
+	});
+	var abb=angular.module('myabb',[]);
+	abb.controller('customersCtrl',function($scope,$htttp){
+		$http.get("http://example.php").success(function(response){
+			$scope.names=response.records;
+		});
+		$scope.names=[
+		{"Name":"Alfreds Futterkiste0","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste1","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste2","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste3","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste4","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste5","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste6","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste7","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste8","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste9","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste10","City":"Berlin","Country":"Germany"},
+		{"Name":"Alfreds Futterkiste11","City":"Berlin","Country":"Germany"}
+		]
+	});
+	// var app = angular.module("myApp", []);
+	// app.filter();
+	// app.controller();
+	// app.directive();
+	// app.service();
+</script>
+<!-- 
+ng-app:指定应用，类似指定作用域；
+ng-controler:控制应用；
+ng-model：绑定需要输入的数据模型；
+ng-init:初始化数据；
+ng-bind：绑定需要显示的数据；
+ng-repeat：重复html元素
+ng-option：来创建一个下拉列表
+（ng-repeat指令是通过数组来循环HTML代码来创建下拉列表，但ng-options指令更适合创建下拉列表，它有以下优势：使用 ng-options 的选项的一个对象， ng-repeat 是一个字符串。）
+过滤器(可用于搜索框的输入)：
+currency：将数字格式化为现金格式
+filter：从一个集合中选择子项
+lowercase：将字符串装换为小写形式
+orderBy：通过一个表达式对集合元素进行排序
+uppercase：将字符串转换为大写形式
+$http.get(url):用来从服务器读取数据的函数，可以通过PHP Server从MySQL数据库中获取数据，可以通过ASP.NET Server从MSSQL数据库中获取数据
+$interval 服务对应了 JS window.setInterval 函数。
+$timeout 服务对应了 JS window.setTimeout 函数。
+$index:显示行号
+$even:表格的奇数行
+$odd:表格的偶数行
+header("Access-Control-Allow-Origin: *")；这行代码被用在PHP中，用来允许跨站HTTP请求。
+ng-disabled:将AngularJS application数据绑定到HTML元素的disabled属性上。
+ng-show:用来显示或隐藏一个HTML元素。ng-show="true/false";ng-show="hour > 12";
+ng-hide:隐藏或显示一个HTML元素。ng-hide="true/false";
+ng-click:定义了AngularJS的click事件
+ng-include:将HTML文件加入到HTML文档中
+novalidate:application中并不需要novalidate属性，不过在AngularJS表单中你通常需要使用它来覆盖HTML5自带的验证功能
+表单
+$dirty:	表示当前field中的内容被修改过。
+$valid:	表示当前field中的内容是有效的。
+$invalid:	表示当前field中的内容是无效的。
+$pristine:	表示当前field中的内容还没有被修改。
+API
+angular.lowercase()	将字符串转换为小写形式。
+angular.uppercase()	将字符串转换为大写形式。
+angular.copy()	深拷贝一个对象或数组。
+angular.forEach()	遍历对象或数组中的每一个元素并执行一个函数。
+angular.isArray()	判断给定的对象是否为数组。
+angular.isDate()	判断给定的对象是否为日期类型。
+angular.isDefined()	判断给定的对象是否定义过。
+angular.isElement()	判断给定的对象是否为一个DOM元素。
+angular.isFunction()	判断给定的对象是否为一个函数。
+angular.isNumber()	判断给定的对象是否为数字。
+angular.isObject()	判断给定的对象是否为object类型。
+angular.isString()	判断给定的对象是否为字符串。
+angular.isUndefined()	判断给定的对象是否没有定义过（与angular.isDefined()相反）。
+angular.equals()	判断给定的两个对象是否相等。
+angular.fromJSON()	将给定的JSON对象反序列化为字符串。
+angular.toJSON()	将给定的字符串序列化为JSON对象。
+angular.bootstrap()	手动引导AngularJS应用程序。
+angular.element()	将一个HTML元素包装成一个JQuery元素（然后你可以对它使用JQuery提供的方法）。
+angular.module()	创建，注册或者重新恢复一个AngularJS模块。
+依赖注入：
+value：是一个简单的 javascript 对象，用于向控制器传递值（配置阶段）
+factory：是一个函数用于返回值。在 service 和 controller 需要时创建。
+通常我们使用 factory 函数来计算或返回值。
+service
+provider：通过 provider 创建一个 service、factory等(配置阶段)。
+Provider 中提供了一个 factory 方法 get()，它用于返回 value/service/factory。
+constant：constant(常量)用来在配置阶段传递数值，注意这个常量在配置阶段是不可用的。
+ -->
+</body>
+</html>
