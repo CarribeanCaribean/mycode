@@ -1,0 +1,71 @@
+body{
+	font-family: "helvetica","arial",serif;
+	color:#333;
+	background-color: #ccc;
+	margin:1em 10%;
+}
+h1{
+	color:#333;
+	background-color: transparent;
+}
+a{
+	color:#c60;
+	background-color: transparent;
+	font-weight: bold;
+	text-decoration: none;
+}
+ul{
+	padding:0;
+}
+#imagegallery li{
+	float:left;
+	padding:1em;
+	list-style: none;
+}
+img{
+	display: block;
+	clear: both;
+}
+table{
+	margin:auto;
+	border:1px solid #699;
+}
+caption{
+	margin:auto;
+	padding:.2em;
+	font-size:1.2em;
+	font-weight:bold;
+}
+th{
+	font-weight:normal;
+	font-style:italic;
+	text-align:left;
+	border:1px solid #699;
+	background-color:#9cc;
+	color:#000;
+}
+th,td{
+	width:10em;
+	padding:.5em;
+}
+.intro{
+	font-weight:bold;
+	font-size:1.4em;
+	color:#69c;
+}
+#slideshow{
+	width:100px;
+	height:100px;
+	position:relative;
+	overflow:hidden;
+}
+#preview{
+	position:absolute;
+}
+/*单双行分别设置颜色css3新特性
+ tr:nth-child(odd){
+	background-color:#ffc;
+}
+tr:nth-child(even){
+	background-color: #fff;
+} */
