@@ -1,0 +1,29 @@
+<%- include header %>
+<ion-content class="bgcf0f0">
+    <form action="/test" method="post" enctype="multipart/form-data">
+        <div class="item-note pRel verAMiddle adviceImgC">
+            <img src="img/headimg.png" class="verAMiddle dataHead advicePicAdd" id="imgurl"/>
+            <input type="file" name="imgurl"  class="pAbs adviceImgUrl" onchange=""/>
+        </div>
+        <input type="submit" class="button"/>
+        <%if(path){console.log(path)%>
+        <img src="<%=path%>" class="verAMiddle dataHead advicePicAdd"/>
+        <%}%>
+    </form>
+</ion-content>
+<!--index.js
+app.get('/test', function(req, res, next){
+		res.render('test',{
+			title:'测试图片上传与预览',
+			path:req.flash('path').toString()
+		});
+	})
+	app.post('/test',upload.single('imgurl'),function(req,res,next){
+	  	var filename = req.file.filename
+		var path='upload/'+filename;
+		req.flash('path', path); 
+		req.flash('success', '成功'); 
+	    res.redirect('/test');
+	})
+-->
+<%- include footer %>

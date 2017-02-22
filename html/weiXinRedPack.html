@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta name="viewport" content=" height=device-height,width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta charset="UTF-8" content="content">
+	<title>canvas玩转红包照片</title>
+	<script src="../js/jquery-3.1.1.min.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#blur-div{
+			/* width:700px; */
+			/* height: 700px; */
+			margin: 0 auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#image{
+			display: block;
+			/* width: 700px; */
+			/* height: 700px; */
+			margin: 0 auto;
+
+			filter: blur(10px);
+			-webkit-filter: blur(10px);
+			-moz-filter: blur(10px);
+			-ms-filter:blur(10px);
+			-o-filter: blur(10px);
+
+			position: absolute;
+			left: 0;
+			top: 0; 
+
+			z-index: 0;
+		}
+		#canvas{
+			display: block;
+			margin: 0 auto;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 100;
+		}
+		/* .inputRange{
+			width: 400px;
+			display: table;
+			margin:20px auto;
+		} */
+		.button{
+			display: block;
+			position: absolute;
+			z-index: 200;
+
+			width: 100px;
+			height: 30px;
+
+			color: white;
+			text-decoration: none;
+			text-align: center;
+			line-height: 30px;
+
+			border-radius: 5px;
+		}
+		#reset-button{
+			left: 50px;
+			bottom: 20px;
+			background-color: #058;
+		}
+		#reset-button:hover{
+			background-color: #047;
+		}
+		#show-button{
+			right: 50px;
+			bottom: 20px;
+			background-color: #085;
+		}
+		#show-button:hover{
+			background-color: #074;
+		}
+	</style>
+</head>
+<body>
+	<div id="blur-div">
+		<img src="../images/city01.jpg" alt="03.jpeg" id="image"/>
+		<canvas id="canvas">
+		</canvas>
+		<a href="javascript:reset()" title="" class="button" id="reset-button">RESET</a>
+		<a href="javascript:show()" title="" class="button" id="show-button">SHOW</a>
+	</div>
+	
+	<!-- <input type="range" name="" value="5" max="10" class="inputRange" id="inputControlImg"/> -->
+	<script>
+		// $('#inputControlImg').click(function(){
+		// 	var inputValue=$('#inputControlImg').val();
+		// 	var imageBlur=inputValue+'px';
+		// 	$('#image').css({
+		// 		'filter': 'blur('+imageBlur+')',
+		// 	'-webkit-filter': 'blur('+imageBlur+')',
+		// 	'-moz-filter': 'blur('+imageBlur+')',
+		// 	'-ms-filter':'blur('+imageBlur+')',
+		// 	'-o-filter': 'blur('+imageBlur+')'
+		// 	});
+		// });
+
+		var canvasHeight=window.innerHeight;
+		var canvasWidth=window.innerWidth;
+
+		var canvas=document.getElementById('canvas');
+		var context=canvas.getContext('2d');
+
+		canvas.width=canvasWidth;
+		canvas.height=canvasHeight;
+
+		var image=new Image();
+		var radius=50;
+		var clippingRegion;
+		var leftMargin=0,topMargin=0;
+
+		image.src="../images/city01.jpg";
+		image.onload=function(e){
+			$('#blur-div').css({
+				'width':canvasWidth+'px',
+				'height':canvasHeight+'px'
+			});
+			$('#image').css({
+				'width':image.width+'px',
+				'height':image.height+'px'
+			});
+
+			leftMargin=(image.width-canvas.width)/2;
+			topMargin=(image.height-canvas.height)/2;
+
+			$('#image').css({
+				'top':String(-topMargin)+'px',
+				'left':String(-leftMargin)+'px'
+			});
+
+			initCanvas();
+		}
+		function initCanvas(){
+			var theleft=leftMargin<0?-leftMargin:0;
+			var thetop=topMargin<0?-topMargin:0;
+			clippingRegion={
+				x:Math.random()*(canvas.width-2*radius-2*theleft)+radius+theleft,
+				y:Math.random()*(canvas.height-2*radius-2*thetop)+radius+thetop,
+				r:radius
+			};
+			draw(image,clippingRegion);
+		}
+		function setClippingRegion(clippingRegion){
+			context.beginPath();
+			context.arc(clippingRegion.x,clippingRegion.y,clippingRegion.r,0,Math.PI*2,false);
+			context.clip();
+		}
+		function draw(image,clippingRegion){
+			context.clearRect(0,0,canvas.width,canvas.height);
+
+			context.save();
+			setClippingRegion(clippingRegion);
+			context.drawImage(image,Math.max(leftMargin,0),Math.max(topMargin,0),Math.min(canvas.width,image.width),Math.min(canvas.height,image.height),leftMargin<0?-leftMargin:0,topMargin<0?-topMargin:0,Math.min(canvas.width,image.width),Math.min(canvas.height,image.height));
+			context.restore();
+		}
+		function reset(){
+			initCanvas();
+		}
+		function show(){
+
+			// clippingRegion.r=1000;
+			// draw(image,clippingRegion);
+
+			var theAnimation=setInterval(function(){
+				clippingRegion.r+=20;
+				if(clippingRegion.r>1000){
+					clearInterval(theAnimation)
+				}
+				draw(image,clippingRegion)
+			},30)
+		}
+		canvas.addEventListener("touchstart",function(e){
+			e.preventDefault();
+		})
+	</script>
+</body>
+</html>

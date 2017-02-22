@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>canvas图像滤镜等效果</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div style="margin:20px auto;width:1700px;">
+		<canvas id="canvasa" width="800" height="560" style="">
+			你的浏览器尚不支持canvas
+		</canvas>
+		<canvas id="canvasb" width="800" height="560" style="border:1px solid #aaa">
+			你的浏览器尚不支持canvas
+		</canvas>
+	</div>
+	<div style="clear:both">
+		
+	</div>
+	<div style="text-align: center;margin-top: 50px;font-size: 20px;">
+		<a href="javascript:filter()" title="">filter</a>
+		<a href="javascript:greyEffect()" title="">Grey effect</a>
+		<a href="javascript:blackEffect()" title="">Black&White Effect</a>
+		<a href="javascript:reverseEffect()" title="">Reverse Effect</a>
+		<a href="javascript:blurEffect()" title="">Blur Effect</a>
+		<a href="javascript:mosaicEffect()" title="">Mosaic Effect</a>
+	</div>
+	<script>
+		var canvasa=document.getElementById("canvasa");
+		var contexta=canvasa.getContext("2d");
+
+		var canvasb=document.getElementById("canvasb");
+		var contextb=canvasb.getContext("2d");
+
+		var image=new Image();
+		window.onload=function(){
+			image.src="../images/city01.jpg";
+			image.onload=function(){
+				contexta.drawImage(image,0,0,canvasa.width,canvasa.height)
+			}
+		}
+		function filter(){//滤镜
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			for(var i=0;i<canvasb.width*canvasb.height;i++){
+				//i=x*width+y 则改变第x行第y列的像素
+				pixelData[4*i+0]=0;//r
+				pixelData[4*i+1]=0;//g
+				pixelData[4*i+2]=0;//b
+				pixelData[4*i+3]=0;//a
+			}
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+		function greyEffect(){//灰色
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			for(var i=0;i<canvasb.width*canvasb.height;i++){
+				//i=x*width+y 则改变第x行第y列的像素
+				var r=pixelData[4*i+0]=0;//r
+				var g=pixelData[4*i+1]=0;//g
+				var b=pixelData[4*i+2]=0;//b
+
+				var grey=r*0.3+g*0.59+b*0.11;
+
+				pixelData[4*i+0]=grey;
+				pixelData[4*i+1]=grey;
+				pixelData[4*i+2]=grey;
+			}
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+		function blackEffect(){//黑白效果
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			for(var i=0;i<canvasb.width*canvasb.height;i++){
+				//i=x*width+y 则改变第x行第y列的像素
+				var r=pixelData[4*i+0]=0;//r
+				var g=pixelData[4*i+1]=0;//g
+				var b=pixelData[4*i+2]=0;//b
+
+				var grey=r*0.3+g*0.59+b*0.11;
+				if(grey>255/2){
+					v=255
+				}else{
+					v=0
+				}
+				pixelData[4*i+0]=v;
+				pixelData[4*i+1]=v;
+				pixelData[4*i+2]=v;
+			}
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+		function reverseEffect(){//其他颜色滤镜
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			for(var i=0;i<canvasb.width*canvasb.height;i++){
+				//i=x*width+y 则改变第x行第y列的像素
+				var r=pixelData[4*i+0]=0;//r
+				var g=pixelData[4*i+1]=0;//g
+				var b=pixelData[4*i+2]=0;//b
+
+				pixelData[4*i+0]=255-r;
+				pixelData[4*i+1]=255-g;
+				pixelData[4*i+2]=255-b;
+			}
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+		function blurEffect(){//模糊效果：通过周围的像素点获得模糊的像素点
+			var tmpImageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var tmpPixelData=imageData.data;
+
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			var blurR=3;
+			var totalnum=(2*blurR+1)*(2*blurR+1)
+			for(var i=blurR;i<canvasb.height-blurR;i++){
+				for(var j=blurR;j<canvasb.width-blurR;j++){
+					var totalr=0,totalg=0,totalb=0;
+					for(var dx=-blurR;dx<=blurR;dx++){
+						for(var dy=-blurR;dy<=blurR;dy++){
+							var x=i+dx;
+							var y=j+dy;
+
+							var p=x*canvasb.width+y;
+							totalr+=tmpPixelData[p*4+0];
+							totalg+=tmpPixelData[p*4+1];
+							totalb+=tmpPixelData[p*4+2];
+						}
+					}
+
+					var p=x*canvasb.width+j;
+
+					tmpPixelData[p*4+0]=totalr/totalnum;
+					tmpPixelData[p*4+1]=totalg/totalnum;
+					tmpPixelData[p*4+2]=totalb/totalnum;
+				}
+			}
+
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+		function mosaicEffect(){//马赛克效果
+			var tmpImageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var tmpPixelData=imageData.data;
+
+			var imageData=contexta.getImageData(0,0,canvasa.width,canvasa.height)
+			var pixelData=imageData.data;
+
+			var size=16;
+			var totalnum=size*size;
+			for(var i=0;i<canvasb.height;i+=size){
+				for(var j=0;j<canvasb.width;j+=size){
+					var totalr=0,totalg=0,totalb=0;
+					for(var dx=0;dx<size;dx++){
+						for(var dy=0;dy<=size;dy++){
+							var x=i+dx;
+							var y=j+dy;
+
+							var p=x*canvasb.width+y;
+							totalr+=tmpPixelData[p*4+0];
+							totalg+=tmpPixelData[p*4+1];
+							totalb+=tmpPixelData[p*4+2];
+						}
+					}
+
+					var p=x*canvasb.width+j;
+
+					var resr=totalr/totalnum;
+					var resg=totalg/totalnum;
+					var resb=totalb/totalnum;
+					for(var dx=0;dx<size;dx++){
+						for(var dy=0;dy<=size;dy++){
+							var x=i+dx;
+							var y=j+dy;
+
+							var p=x*canvasb.width+y;
+							tmpPixelData[p*4+0]=resr;
+							tmpPixelData[p*4+1]=resg;
+							tmpPixelData[p*4+2]=resb;
+						}
+					}
+				}
+			}
+
+			contextb.putImageData(imageData,0,0,0,0,canvasb.width,canvasb.height)
+		}
+	</script>
+</body>
+</html>
