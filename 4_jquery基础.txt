@@ -1,0 +1,710 @@
+1.环境搭建：下载jQuery文件库，引入jQuery文件库。
+<script language='javascript' type='text/javascript' src='1.9.0/jquery.js'></script>
+
+2. $(' div ').html('Hello iMooc!');
+直接给div赋予'hello imooc'的内容。
+
+3.  $('#default').html($('#divtest').html());在id号为'default'的元素中显示id号为'divtest'元素的内容。——#id选择器
+
+4.   $('button').attr('disabled','true');
+根据元素名查找元素并通过使用attr()方法将它设置为不可用，其中attr()方法的功能是设置或获取元素的某项属性值。
+
+5. var $redHTML = $('.red').html();
+   $('.green').html($redHTML);
+   使用class选择器的方式获取元素，将类名为'green'div元素中的文字内容设置为与类名为'red'元素一样
+
+6.$('*')，
+'*'号选择器，它的功能是获取页面中的全部元素，'全部'啊!包括<head>、<body>、<script>这些元素
+ $('form *').attr('disabled', 'true');
+使用*选择器， 将<form>元素包含下的全部表单型元素都设为不可用。
+
+7.$('sele1,sele2,seleN') 例如$('.class,.class')
+选择任意多个指定的元素，其中参数sele1、sele2到seleN为有效选择器，每个选择器之间用'，'号隔开，它们可以是之前提及的各种类型选择器，如$('#id')、$('.class')、$('selector')选择器等。
+
+8.$('ance desc') 例如 $('div label').css('background-color','blue');
+其中ance desc是使用空格隔开的两个参数。ance参数（ancestor祖先的简写）表示父元素；desc参数（descendant后代的简写）表示后代元素，即包括子元素、孙元素等等。两个参数都可以通过选择器来获取。
+
+9.$('parent > child')
+child参数获取的元素都是parent选择器的子元素，它们之间通过'>'符号来表示一种层次关系。
+使用$('div>span')选择器代码，获取的是<div>'家庭中'全部'子辈'<span>元素，不包括'孙辈'<span>元素和'家庭外'的<span>元素。
+
+10.$('prev + next')
+其中参数prev为任何有效的选择器，参数'next'为另外一个有效选择器，它们之间的'+'表示一种上下的层次关系，也就是说，'prev'元素最紧邻的下一个元素由'next'选择器返回的并且只返回唯的一个元素。
+
+11.$('prev ~ siblings')
+与上一节中介绍的prev + next层次选择器相同，prev ~ siblings选择器也是查找prev 元素之后的相邻元素，但前者只获取第一个相邻的元素，而后者则获取prev 元素后面全部相邻的元素，
+
+12. $('li:first')  $('li:last')
+:first过滤选择器的功能是获取第一个元素，常常与其它选择器一起使用，获取指定的一组元素中的第一个元素。
+:last过滤选择器的功能是获取最后一个元素，常常与其它选择器一起使用，获取指定的一组元素中的最后一个元素。
+
+13.$('li:eq(index)')
+通过调用$('li:eq(3)')过滤选择器代码，获取了第4个<li>元素，并使用css()方法设置了该元素在页面中显示的文字样式。
+
+14.$('li:contains(text)')
+调用li:contains('土豪')代码，可以很方便地获取<li>中包含'土豪'字符内容的全部元素，并且只要与选择的元素中或子元素中包含该字符内容，就可以被选中。
+
+15.$('li:has(selector)')
+通过使用$('li:has('p')')选择器代码，获取了包含<p>元素的全部<li>元素，并通过css方法改变了这些元素在页面中显示的文字样式。
+
+16.$('p:hidden')
+先调用$('p:hidden')代码获取隐藏的<p>元素，并调用该元素的html()方法获取该元素中的内容，最后将该内容显示在<div>元素中。
+
+17.$('p:visible')
+调用$('p:visible')选择器代码，获取那个可见的<p>元素，并调用html()方法获取该元素的内容，最后将该内容显示在<div>元素中。
+:visible过滤选择器获取的是全部可见的元素，也就是说，只要不将元素的display属性值设置为'none'，那么，都可以通过该选择器获取。
+
+18:$('li[attribute=value]')
+使用$('li[title='我最爱']')属性选择器代码，获取了2个<li>元素，并调用css()方法设置它们在页面中显示的文字颜色，另外，属性值中的''单引号可以不写，由于属性名与属性值是等号，因此，它们之间不是包含关系，而是完全相同。
+
+19.$('li[attribute!=value]')
+使用$('li[title!='我最爱']')属性选择器代码，获取了3个<li>元素，其中一个是不包含title属性名，另外两个的title属性值不等于'我最爱'，获取元素后并调用css()方法设置这些元素在页面中显示的文字颜色。
+
+20.$('li[attribute*=value]')
+使用$('li[title*='最']')属性选择器代码，获取了3个<li>元素，这些元素的title属性值中都包含了'最'字符，获取这些元素后并调用css()方法设置这些元素在页面中显示的文字颜色。
+
+21.$('li:first-child')
+通过$('li:first-child')选择器代码，获取了两个<ul>父元素中的第一个<li>元素，并使用css()方法修改了它们在页面中显示的文字颜色。
+
+22.$('li:last-child')
+通过$('li:last-child')选择器代码，获取了两个<ul>父元素中的最后一个<li>元素，并使用css()方法修改了它们在页面中显示的文字颜色。
+
+23.$('#frmTest :input')
+:input表单选择器可以实现，它的功能是返回全部的表单元素，不仅包括所有<input>标记的表单元素，而且还包括<textarea>、<select> 和 <button>标记的表单元素，因此，它选择的表单元素是最广的。
+通过调用$('#frmTest :input')表单选择器代码获取了表单中的全部元素，并使用addClass()方法修改它们在页面中显示的边框颜色。
+
+24.$('#frmTest :text')——#frmTest和：text中间有空格
+通过:text表单选择器只获取单行的文本输入框元素，对于<textarea>区域文本、按钮元素无效。
+:text表单文本选择器可以获取表单中全部单行的文本输入框元素，单行的文本输入框就像一个不换行的字条工具，使用非常广泛。
+
+25.$('#frmTest :password')
+如果想要获取密码输入文本框，可以使用:password选择器，它的功能是获取表单中全部的密码输入文本框元素。在多个文本输入框中，使用:password选择器只能获取表单中的密码输入文本框，并使用addClass()方法改变它的边框颜色
+
+26.$('#frmTest :radio')
+表单中的单选按钮常用于多项数据中仅选择其一，而使用:radio选择器可轻松获取表单中的全部单选按钮元素。
+hide()方法的功能是隐藏指定的元素。
+
+27.$('#frmTest :checkbox')
+表单中的复选框常用于多项数据的选择，使用:checkbox选择器可以快速定位并获取表单中的复选框元素。
+
+28.  $('#frmTest input:submit')
+通常情况下，一个表单中只允许有一个'type'属性值为'submit'的提交按钮，使用:submit选择器可获取表单中的这个提交按钮元素。
+使用:submit选择器从三种类型按钮中获取了提交按钮，并使用attr()方法将该按钮显示的文字修改为'点我就提交了'。
+
+29.$('#frmTest :image')
+当一个<input>元素的'type'属性值设为'image'时，该元素就是一个图像域，使用:image选择器可以快速获取该类全部元素。例如，在表单中添加两种类型的图像元素，使用:image选择器获取其中的一种图像元素，并改变该元素的边框样式
+从图中可以看出，使用:image选择器只能获取<input>图像域，而不能获取<img>格式的图像元素。
+
+30.   $('#frmTest :button')
+表单中包含许多类型的按钮，而使用:button选择器能获取且只能获取'type'属性值为'button'的<input>和<button>这两类普通按钮元素。
+使用:button选择器只能获取两种类型的普通按钮，且修改了它们的边框颜色，并未获取表单中的'提交按钮'
+
+31. $('#frmTest :checked')
+有一些元素存在选中状态，如复选框、单选按钮元素，选中时'checked'属性值为'checked'，调用:checked可以获取处于选中状态的全部元素。
+
+32.$('#frmTest :selected')
+:selected选择器只能获取<select>下拉列表框中全部处于选中状态的<option>选项元素。
+
+33.使用attr()方法控制元素的属性
+attr()方法的作用是设置或者返回元素的属性，其中attr(属性名)格式是获取元素属性名的值，attr(属性名，属性值)格式则是设置元素属性名的值。
+通过attr()方法可以方便地获取元素中指定属性名称的内容，并将获取的内容通过html()方法显示在页面中。
+       $('#a1').attr('href' , 'http://127.0.0.1');
+            var $url = $('#a1').attr('href');
+            $('#tip').html($url);
+
+34.操作元素的内容
+使用html()和text()方法操作元素的内容，当两个方法的参数为空时，表示获取该元素的内容，而如果方法中包含参数，则表示将参数值设置为元素内容。
+html()方法可以获取元素的HTML内容，因此，原文中的格式代码也被一起获取，而text()方法只是获取元素中的文本内容，并不包含HTML格式代码，所以它显示的内容并没有变'歪'。
+
+35.操作元素的样式
+通过addClass()和css()方法可以方便地操作元素中的样式，前者括号中的参数为增加元素的样式名称，后者直接将样式的属性内容写在括号中。
+addClass('blue white')
+通过addClass()方法为<div>元素增加了两个样式名称，从而改变了<div>元素的背景和文字颜色，增加多个样式名称时，要用空格隔开。
+css({'background-color':'red','color':'white'})
+
+36.移除属性和样式
+使用removeAttr(name)和removeClass(class)分别可以实现移除元素的属性和样式的功能，前者方法中参数表示移除属性名，后者方法中参数则表示移除的样式名
+  $('#content').removeAttr('href')
+使用removeAttr()方法移除元素的'href'属性后，再次显示元素的'href'属性值时，则为空值，<a>元素中的文字也丢失可点击的效果。
+  $('#content').removeClass('blue white')
+使用removeClass()方法移除<div>元素中两个名称为'blue'和'white'的样式。
+
+37.使用append()方法向元素内追加内容
+append(content)方法的功能是向指定的元素中追加内容，被追加的content参数，可以是字符、HTML元素标记，还可以是一个返回字符串内容的函数。
+ $('body').append(rethtml());追加函数
+ $('body').append($html);追加一个具有'id'、'title'属性和显示内容的<div>元素
+ $('body').append('追加的内容');直接填写追加的内容
+
+ 38.使用appendTo()方法向被选元素内插入内容
+ appendTo()方法也可以向指定的元素内插入内容，它的使用格式是：
+$(content).appendTo(selector)
+参数content表示需要插入的内容，参数selector表示被选的元素，即把content内容插入selector元素内，默认是在尾部。
+$($html).appendTo('div');字符串变量插入到div
+$('.red').appendTo('div');将<div>外的<span>元素插入<div>内
+
+39.使用before()和after()在元素前后插入内容
+使用before()和after()方法可以在元素的前后插入内容，它们分别表示在整个元素的前面和后面插入指定的元素或内容，调用格式分别为：
+$(selector).before(content)和$(selector).after(content)
+其中参数content表示插入的内容，该内容可以是元素或HTML字符串。
+$('.green').before($html);调before()方法，将定义好的HTML变量内容插入到<span>元素的前面。
+$('.green').after($html);调用after()方法，将定义好的HTML变量内容插入到<span>元素的后面。
+
+40.使用clone()方法复制元素
+调用clone()方法可以生成一个被选元素的副本，即复制了一个被选元素，包含它的节点、文本和属性，它的调用格式为：
+$(selector).clone()
+其中参数selector可以是一个元素或HTML内容。
+使用clone()方法复制元素时，不仅复制了该元素的文本和节点，还将它的'title'属性也一起复制过来了
+ $('body').append($('.red').clone());
+
+41.替换内容
+replaceWith()和replaceAll()方法都可以用于替换元素或元素中的内容，但它们调用时，内容和被替换元素所在的位置不同，分别为如下所示：
+$(selector).replaceWith(content)和$(content).replaceAll(selector)
+参数selector为被替换的元素，content为替换的内容。
+	$('green').replaceWith($html)
+     $($html).replaceAll('.green')
+
+42.使用wrap()和wrapInner()方法包裹元素和内容
+wrap()和wrapInner()方法都可以进行元素的包裹，但前者用于包裹元素本身，后者则用于包裹元素中的内容，它们的调用格式分别为：
+$(selector).wrap(wrapper)和$(selector).wrapInner(wrapper)
+参数selector为被包裹的元素，wrapper参数为包裹元素的格式。
+$('.red').wrapInner(<i></i>);调用wrapInner()方法将页面中的<span>元素内的文字字体变成斜体
+$('.red').wrap(<div></div>);调用wrap()方法，将<span>用<div>元素包裹起来
+
+43.使用each()方法遍历元素
+使用each()方法可以遍历指定的元素集合，在遍历时，通过回调函数返回遍历元素的序列号，它的调用格式为：
+$(selector).each(function(index))
+参数function为遍历时的回调函数，index为遍历元素的序列号，它从0开始。
+  $('span').each(function (index) {
+                if (index == 1) {
+                    $(this).attr('class', 'red');
+                }
+            });
+通过each()遍历方法，改变第2个元素<span>元素的背景色。
+
+44.使用remove()和empty()方法删除元素
+remove()方法删除所选元素本身和子元素，该方法可以通过添加过滤参数指定需要删除的某些元素，而empty()方法则只删除所选元素的子元素。
+使用remove('.red')方法只是把<span>元素中类别名为'red'的这部分元素给删除了。
+$('span').empty();
+使用empty()方法删除全部<span>元素的子元素内容。
+
+45.页面加载时触发ready()事件
+ready()事件类似于onLoad()事件，但前者只要页面的DOM结构加载后便触发，而后者必须在页面全部元素加载成功才触发，ready()可以写多个，按顺序执行。此外，下列写法是相等的：
+$(document).ready(function(){})等价于$(function(){});
+ $(function(){
+                $('#btntest').bind('click', function () {
+                    $('#tip').html('我被点击了！');
+                });
+            });
+$(document).ready(function(){
+	$('#btntest').bind('click', function () {
+                    $('#tip').html('我被点击了！');
+                });
+});
+
+46.使用bind()方法绑定元素的事件
+bind()方法绑定元素的事件非常方便，绑定前，需要知道被绑定的元素名，绑定的事件名称，事件中执行的函数内容就可以，它的绑定格式如下：
+$(selector).bind(event,[data] function)
+参数event为事件名称，多个事件名称用空格隔开，function为事件执行的函数。
+ $(function () {
+                $('#btntest').bind('click', function () {
+                    $(this).attr('disabled', 'true');
+                })
+            });使用bind()方法绑定单击(click)和鼠标移出(mouseout)这两个事件，触发这两个事件中，按钮将变为不可用。
+
+47.使用hover()方法切换事件
+hover()方法的功能是当鼠标移到所选元素上时，执行方法中的第一个函数，鼠标移出时，执行方法中的第二个函数，实现事件的切实效果，调用格式如下：
+$(selector).hover(over，out);
+over参数为移到所选元素上触发的函数，out参数为移出元素时触发的函数。
+ $(function () {
+                $('div').hover(
+                function () {
+                    $(this).addClass('orange');
+                },
+                function () {
+                    $(this).removeClass('orange')
+                })
+            });调用hover方法实现元素背景色的切换。
+48.使用toggle()方法绑定多个函数
+(注意：toggle()方法支持目前主流稳定的jQuery版本1.8.2，在1.9.0之后的版本是不支持的。)
+toggle()方法可以在元素的click事件中绑定两个或两个以上的函数，同时，它还可以实现元素的隐藏与显示的切换，绑定多个函数的调用格式如下：
+$(selector).toggle(fun1(),fun2(),funN(),...)
+其中，fun1，fun2就是多个函数的名称
+   $(function () {
+                $('#btntest').bind('click', function () {
+                    $('div').toggle()
+                })
+            });使用toggle()方法控制元素的显示与隐藏属性。使用选择器获取需要隐藏或显示的元素对象。
+调用元素对象的toggle()无参数方法，如果元素显示，则隐藏，否则，就显示。
+
+49.使用unbind()方法移除元素绑定的事件
+unbind()方法可以移除元素已绑定的事件，它的调用格式如下：
+$(selector).unbind(event,fun)
+其中参数event表示需要移除的事件名称，多个事件名用空格隔开，fun参数为事件执行时调用的函数名称。
+如果没有规定参数，unbind() 方法会删除指定元素的所有事件处理程序 $('#btntest').unbind();
+
+50.使用one()方法绑定元素的一次性事件
+one()方法可以绑定元素任何有效的事件，但这种方法绑定的事件只会触发一次，它的调用格式如下：
+$(selector).one(event,[data],fun)
+参数event为事件名称，data为触发事件时携带的数据，fun为触发该事件时执行的函数。
+  $(function () {
+                var intI = 0;
+                $('div').one('click', function () {
+                    intI++;
+                    $(this).css('font-size', intI + 'px');
+                })
+            });调用one()方法绑定<div>元素的'click'事件。
+
+51.调用trigger()方法手动触发指定的事件
+trigger()方法可以直接手动触发元素指定的事件，这些事件可以是元素自带事件，也可以是自定义的事件，总之，该事件必须能执行，它的调用格式为：
+$(selector).trigger(event)
+其中event参数为需要手动触发的事件名称。
+$('div').trigger('change-color');调用trigger()方法手动触发一个绑定在<div>元素中的自定义事件。
+
+52.文本框的focus和blur事件
+focus事件在元素获取焦点时触发，如点击文本框时，触发该事件；而blur事件则在元素丢失焦点时触发，如点击除文本框的任何元素，都会触发该事件。
+ $(function () {
+                $('input')
+                .bind('focus', function () {
+                    $('div').html('请输入您的姓名！');
+                })
+                $('input').bind('blur', function () {
+                    if ($(this).val().length == 0)
+                        $('div').html('你的名称不能为空！');
+                })
+            });
+
+53.下拉列表框的change事件
+当一个元素的值发生变化时，将会触发change事件，例如在选择下拉列表框中的选项时，就会触change事件
+  $(function () {
+                $('select').bind('change', function () {
+                    if ($(this).val() == '苹果')
+                        $(this).css('background-color', 'red');
+                    else
+                        $(this).css('background-color', 'green');
+                })
+            });
+
+54.调用live()方法绑定元素的事件
+(注意：从 jQuery 1.7 开始，不再建议使用 .live() 方法。1.9不支持.live()，本节代码编辑器里的js引用版本改为了1.8。)
+与bind()方法相同，live()方法与可以绑定元素的可执行事件，除此相同功能之外，live()方法还可以绑定动态元素，即使用代码添加的元素事件，格式如下：
+$(selector).live(event,[data],fun)
+参数event为事件名称，data为触发事件时携带的数据，fun为触发该事件时执行的函数。
+    $(function () {
+                $('#btntest').live('click', function () {
+                    $(this).attr('disabled', 'true');
+                })
+                $('body').append('<input id='btntest' type='button' value='点击或移出就不可用了' />');
+            });
+
+55.调用show()和hide()方法显示和隐藏元素
+show()和hide()方法用于显示或隐藏页面中的元素，它的调用格式分别为：
+$(selector).hide(speed,[callback])和$(selector).show(speed,[callback])
+参数speed设置隐藏或显示时的速度值，可为'slow'、'fast'或毫秒数值，可选项参数callback为隐藏或显示动作执行完成后调用的函数名。
+
+
+56.动画效果的show()和hide()方法
+在上一小节中，调用show()和hide()方法仅是实现的元素的显示和隐藏功能，如果在这些方法中增加'speed'参数可以实现动画效果的显示与隐藏，同时，如果添加了方法的回调函数，它将在显示或隐藏执行成功后被调用。
+ $('ul').show(3000,function(){});
+ $('ul').hide(3000,function(){});
+
+57.调用toggle()方法实现动画切换效果
+第一节我们学过实现元素的显示与隐藏需要使用hide()与show()，那么有没有更简便的方法来实现同样的动画效果呢？
+调用toggle()方法就可以很容易做到，即如果元素处于显示状态，调用该方法则隐藏该元素，反之，则显示该元素，它的调用格式是：
+$(selector).toggle(speed,[callback])
+其中speed参数为动画效果时的速度值，可以为数字，单位为毫秒，也可是'fast'、'slow'字符，可选项参数callback为方法执行成功后回调的函数名称。
+
+58.使用slideUp()和slideDown()方法的滑动效果
+可以使用slideUp()和slideDown()方法在页面中滑动元素，前者用于向上滑动元素，后者用于向下滑动元素，它们的调用方法分别为：
+$(selector).slideUp(speed,[callback])和$(selector).slideDown(speed,[callback])
+其中speed参数为滑动时的速度，单位是毫秒，可选项参数callback为滑动成功后执行的回调函数名。
+要注意的是：slideDown()仅适用于被隐藏的元素；slideup()则相反。
+$('ul').slideDown(3000,function(){});
+$('ul').slideUp(3000,function(){});
+
+59.使用slideToggle()方法实现图片'变脸'效果
+使用slideToggle()方法可以切换slideUp()和slideDown()，即调用该方法时，如果元素已向上滑动，则元素自动向下滑动，反之，则元素自动向上滑动，格式为：
+$(selector).slideToggle(speed,[callback])
+其中speed参数为动画效果时的速度值，可以为数字，单位为毫秒，也可是'fast'、'slow'字符，可选项参数callback为方法执行成功后回调的函数名称。
+  $('ul').slideToggle(3000,function() {});
+
+60.使用fadeIn()与fadeOut()方法实现淡入淡出效果
+fadeIn()和fadeOut()方法可以实现元素的淡入淡出效果，前者淡入隐藏的元素，后者可以淡出可见的元素，它们的调用格式分别为：
+$(selector).fadeIn(speed,[callback])和$(selector).fadeOut(speed,[callback])
+其中参数speed为淡入淡出的速度，callback参数为完成后执行的回调函数名。
+    $('ul').fadeOut(3000,function() {});
+     $('ul').fadeIn(3000,function() {});
+
+61.使用fadeTo()方法设置淡入淡出效果的不透明度
+调用fadeTo()方法，可以将所选择元素的不透明度以淡入淡出的效果调整为指定的值，该方法的调用格式为：
+$(selector).fadeTo(speed,opacity,[callback])
+其中speed参数为效果的速度，opacity参数为指定的不透明值，它的取值范围是0.0~1.0，可选项参数callback为效果完成后，回调的函数名。
+          $('.blue').fadeTo(3000,0.6);
+
+62.调用animate()方法制作简单的动画效果
+调用animate()方法可以创建自定义动画效果，它的调用格式为：
+$(selector).animate({params},speed,[callback])
+其中，params参数为制作动画效果的CSS属性名与值，speed参数为动画的效果的速度，单位为毫秒，可选项callback参数为动画完成时执行的回调函数名。
+$(function () {
+                $('span').animate({
+                    width: '80px',
+                    height: '80px'
+                },
+                3000, function () {
+                    $('#tip').html('执行完成!');
+                });
+            });
+
+63.调用animate()方法制作移动位置的动画
+调用animate()方法不仅可以制作简单渐渐变大的动画效果，而且还能制作移动位置的动画，在移动位置之前，必须将被移元素的'position'属性值设为'absolute'或'relative'，否则，该元素移动不了。
+ $(function () {
+                $('span').animate({
+                    left: '+=100px'
+                }, 3000, function () {
+                    $(this).animate({
+                        height: '+=30px',
+                        width: '+=30px'
+                    }, 3000, function () {
+                        $('#tip').html('执行完成!');
+                    });
+                });
+            });先平移后放大
+
+64.调用stop()方法停止当前所有动画效果
+stop()方法的功能是在动画完成之前，停止当前正在执行的动画效果，这些效果包括滑动、淡入淡出和自定义的动画，它的调用格式为：
+$(selector).stop([clearQueue],[goToEnd])
+其中，两个可选项参数clearQueue和goToEnd都是布尔类型值，前者表示是否停止正在执行的动画，后者表示是否完成正在执行的动画，默认为false。
+$('span').stop();
+
+65.调用delay()方法延时执行动画效果
+delay()方法的功能是设置一个延时值来推迟动画效果的执行，它的调用格式为：
+$(selector).delay(duration)
+其中参数duration为延时值，它的单位是毫秒，当超过延时值时，动画继续执行。
+$('span').delay(2000);
+
+66.使用load()方法异步请求数据
+使用load()方法通过Ajax请求加载服务器中的数据，并把返回的数据放置到指定的元素中，它的调用格式为：
+load(url,[data],[callback])
+参数url为加载服务器地址，可选项data参数为请求时发送的数据，callback参数为数据请求成功后，执行的回调函数。
+ .load('http://www.imooc.com/data/fruit_part.html','li',function() {});
+
+67.使用getJSON()方法异步加载JSON格式数据
+使用getJSON()方法可以通过Ajax异步请求的方式，获取服务器中的数组，并对获取的数据进行解析，显示在页面中，它的调用格式为：
+jQuery.getJSON(url,[data],[callback])或$.getJSON(url,[data],[callback])
+其中，url参数为请求加载json格式文件的服务器地址，可选项data参数为请求时发送的数据，callback参数为数据请求成功后，执行的回调函数。
+ $.getJSON('http://www.imooc.com/data/sport.json','Data/sport.json',function(data){});
+
+68.使用getScript()方法异步加载并执行js文件
+使用getScript()方法异步请求并执行服务器中的JavaScript格式的文件，它的调用格式如下所示：
+jQuery.getScript(url,[callback])或$.getScript(url,[callback])
+参数url为服务器请求地址，可选项callback参数为请求成功后执行的回调函数。
+$.getScript('http://www.imooc.com/data/sport_f.js',function() {});
+
+69.使用get()方法以GET方式从服务器获取数据
+使用get()方法时，采用GET方式向服务器请求数据，并通过方法中回调函数的参数返回请求的数据，它的调用格式如下：
+$.get(url,[callback])
+参数url为服务器请求地址，可选项callback参数为请求成功后执行的回调函数。
+$.get('http://www.imooc.com/data/info_f.php',function(data){});
+
+70.使用post()方法以POST方式从服务器发送数据
+与get()方法相比，post()方法多用于以POST方式向服务器发送数据，服务器接收到数据之后，进行处理，并将处理结果返回页面，调用格式如下：
+$.post(url,[data],[callback])
+参数url为服务器请求地址，可选项data为向服务器请求时发送的数据，可选项callback参数为请求成功后执行的回调函数。
+ $.post('http://www.imooc.com/data/check_f.php',{num:$('#txtNumber').val()},function (data) {});
+
+71.使用serialize()方法序列化表单元素值
+使用serialize()方法可以将表单中有name属性的元素值进行序列化，生成标准URL编码文本字符串，直接可用于ajax请求，它的调用格式如下：
+$(selector).serialize()
+其中selector参数是一个或多个表单中的元素或表单元素本身。
+ $('#litest').html($('form').serialize());调用serialize()将表单中的元素值进行序列化，并将序列化后的字符串内容显示在页面元素中。
+
+72.使用ajax()方法加载服务器数据
+使用ajax()方法是最底层、功能最强大的请求服务器数据的方法，它不仅可以获取服务器返回的数据，还能向服务器发送请求并传递数值，它的调用格式如下：
+jQuery.ajax([settings])或$.ajax([settings])
+其中参数settings为发送ajax请求时的配置对象，在该对象中，url表示服务器请求的路径，data为请求时传递的数据，dataType为服务器返回的数据类型，success为请求成功的执行的回调函数，type为发送数据请求的方式，默认为get。
+ $.ajax({
+                        url:'http://www.imooc.com/data/check.php',
+                        data: { num: $('#txtNumber').val() },
+                dataType:'text',       
+                        success: function (data) {}});
+
+73.使用ajaxSetup()方法设置全局Ajax默认选项
+使用ajaxSetup()方法可以设置Ajax请求的一些全局性选项值，设置完成后，后面的Ajax请求将不需要再添加这些选项值，它的调用格式为：
+jQuery.ajaxSetup([options])或$.ajaxSetup([options])
+可选项options参数为一个对象，通过该对象设置Ajax请求时的全局选项值。
+ $.ajaxSetup({
+                dataType:'text',
+                success:function(data){});
+
+74.使用ajaxStart()和ajaxStop()方法
+ajaxStart()和ajaxStop()方法是绑定Ajax事件。ajaxStart()方法用于在Ajax请求发出前触发函数，ajaxStop()方法用于在Ajax请求完成后触发函数。它们的调用格式为：
+$(selector).ajaxStart(function())和$(selector).ajaxStop(function())
+其中，两个方法中括号都是绑定的函数，当发送Ajax请求前执行ajaxStart()方法绑定的函数，请求成功后，执行ajaxStop ()方法绑定的函数。
+  $('#divload').ajaxStart(function(){
+                    $(this).html('正在请求数据...');
+                });
+                $('#divload').ajaxStop(function(){
+                    $(this).html('数据请求完成！');
+
+75.表单验证插件——validate
+该插件自带包含必填、数字、URL在内容的验证规则，即时显示异常信息，此外，还允许自定义验证规则，插件调用方法如下：
+$(form).validate({options})
+其中form参数表示表单元素名称，options参数表示调用方法时的配置对象，所有的验证规则和异常信息显示的位置都在该对象中进行设置。
+ $('#frmV').validate(
+                  {
+                      /*自定义验证规则*/
+                      rules: {
+                            email:{
+                            required:true,
+                            email:true
+                          }
+                      },
+                      /*错误提示位置*/
+                      errorPlacement: function (error, element) {
+                          error.appendTo('.tip');
+                      }
+                  }
+                );
+
+76.表单插件——form
+通过表单form插件，调用ajaxForm()方法，实现ajax方式向服务器提交表单数据，并通过方法中的options对象获取服务器返回数据，调用格式如下：
+$(form). ajaxForm ({options})
+其中form参数表示表单元素名称；options是一个配置对象，用于在发送ajax请求过程，设置发送时的数据和参数。
+$(function () {
+                var options = {
+                    url: 'http://www.imooc.com/data/form_f.php', 
+                    target: '.tip'
+                }
+        $('#frmV').ajaxForm(options);
+            });调用form插件的
+ajaxForm()方法向服务器发送录入的用户名和密码数据，服务器接收后返回并显示在页面中
+
+77.图片灯箱插件——lightBox
+该插件可以用圆角的方式展示选择中的图片，使用按钮查看上下张图片，在加载图片时自带进度条，还能以自动播放的方式浏览图片，调用格式如下：
+$(linkimage).lightBox({options})
+其中linkimage参数为包含图片的<a>元素名称，options为插件方法的配置对象。
+  $(function () {
+            $('.divPics a').lightBox({
+                    overlayBgColor: '#666', //图片浏览时的背景色
+                    overlayOpacity: 0.5, //背景色的透明度
+                    containerResizeSpeed: 600 //图片切换时的速度
+                })
+            });
+78.图片放大镜插件——jqzoom
+在调用jqzoom图片放大镜插件时，需要准备一大一小两张一样的图片，在页面中显示小图片，当鼠标在小图片中移动时，调用该插件的jqzoom()方法，显示与小图片相同的大图片区域，从而实现放大镜的效果，调用格式如下：
+$(linkimage).jqzoom({options})
+其中linkimage参数为包含图片的<a>元素名称，options为插件方法的配置对象。
+  $(function () {
+        $('#jqzoom').jqzoom({ //绑定图片放大插件jqzoom
+                    zoomWidth: 123, //小图片所选区域的宽
+                    zoomHeight: 123, //小图片所选区域的高
+                    zoomType: 'reverse' //设置放大镜的类型
+                });
+            });
+
+79.cookie插件——cookie
+使用cookie插件后，可以很方便地通过cookie对象保存、读取、删除用户的信息，还能通过cookie插件保存用户的浏览记录，它的调用格式为：
+保存：$.cookie(key，value)；读取：$.cookie(key)，删除：$.cookie(key，null)
+其中参数key为保存cookie对象的名称，value为名称对应的cookie值。
+ $.cookie('username',$('#username').val(), {
+                            path: '/', expires: 7
+                        })
+                    }
+                    else {
+            $.cookie('username',null, {
+                            path: '/'
+                        })
+                    }
+
+80.搜索插件——autocomplete
+搜索插件的功能是通过插件的autocomplete()方法与文本框相绑定，当文本框输入字符时，绑定后的插件将返回与字符相近的字符串提示选择，调用格式如下：
+$(textbox).autocomplete(urlData,[options]);
+其中，textbox参数为文本框元素名称，urlData为插件返回的相近字符串数据，可选项参数options为调用插件方法时的配置对象。
+$('#txtSearch').autocomplete(arrUserName,{
+                    minChars: 0, //双击空白文本框时显示全部提示数据
+                    formatItem: function (data, i, total) {
+                        return '<I>' + data[0] + '</I>'; //改变匹配数据显示的格式
+                    },
+
+81.右键菜单插件——contextmenu
+右键菜单插件可以绑定页面中的任意元素，绑定后，选中元素，点击右键，便通过该插件弹出一个快捷菜单，点击菜单各项名称执行相应操作，调用代码如下：
+$(selector).contextMenu(menuId,{options});
+Selector参数为绑定插件的元素，meunId为快捷菜单元素，options为配置对象。
+ $('#btnSubmit').contextMenu('sysMenu',
+   在右键btnSubmit的地方显示sysMenu的内容。
+
+82.自定义对象级插件——lifocuscolor插件
+自定义的lifocuscolor插件可以在<ul>元素中，鼠标在表项<li>元素移动时，自定义其获取焦点时的背景色，即定义<li>元素选中时的背景色，调用格式为：
+$(Id).focusColor(color)
+其中，参数Id表示<ul>元素的Id号，color表示<li>元素选中时的背景色。
+$('#u1').focusColor('#ccc')//调用自定义的插件
+
+83.自定义类级别插件—— twoaddresult
+通过调用自定义插件twoaddresult中的不同方法，可以实现对两个数值进行相加和相减的运算，导入插件后，调用格式分别为：
+$.addNum(p1,p2) 和 $.subNum(p1,p2)
+上述调用格式分别为计算两数值相加和相减的结果，p1和p2为任意数值。
+ $.subNum($('#Text1').val(),$('#Text2').val()));两个数相加
+ $.addNum($('#Text1').val(),$('#Text2').val()));两个数相减
+
+ 84.拖曳插件——draggable
+ 拖曳插件draggable的功能是拖动被绑定的元素，当这个jQuery UI插件与元素绑定后，可以通过调用draggable()方法，实现各种拖曳元素的效果，调用格式如下：
+$(selector). draggable({options})
+options参数为方法调用时的配置对象，根据该对象可以设置各种拖曳效果，如'containment'属性指定拖曳区域，'axis'属性设置拖曳时的坐标方向。
+  $('.drag').draggable({containment:'parent'});
+
+85.放置插件——droppable
+除使用draggable插件拖曳任意元素外，还可以调用droppable UI插件将拖曳后的任意元素放置在指定区域中，类似购物车效果，调用格式如下：
+$(selector).droppable({options})
+selector参数为接收拖曳元素，options为方法的配置对象，在对象中，drop函数表示当被接收的拖曳元素完全进入接收元素的容器时，触发该函数的调用。
+  $(function () {
+                $('.drag').draggable();
+                $('.cart').droppable({
+                    drop: function () {
+                    intSum++;
+                $('this').addClass('focus')
+            .find('#tip').html(');
+                $('.title').html(intSum);
+                    } 
+                })
+            });
+
+86.拖曳排序插件——sortable
+拖曳排序插件的功能是将序列元素（例如<option>、<li>）按任意位置进行拖曳从而形成一个新的元素序列，实现拖曳排序的功能，它的调用格式为：
+$(selector).sortable({options});
+selector参数为进行拖曳排序的元素，options为调用方法时的配置对象，
+ $('ul').sortable({
+                    delay:2,
+                    opacity:0.36
+                })调用插件的sortable()方法，实现按指定的透明度进行拖曳排序的功能。
+
+87.面板折叠插件——accordion
+面板折叠插件可以实现页面中指定区域类似'手风琴'的折叠效果，即点击标题时展开内容，再点另一标题时，关闭已展开的内容，调用格式如下：
+$(selector).accordion({options});
+其中，参数selector为整个面板元素，options参数为方法对应的配置对象。
+ $('#accordion').accordion();
+
+ 88.选项卡插件——tabs
+ 使用选项卡插件可以将<ul>中的<li>选项定义为选项标题，在标题中，再使用<a>元素的'href'属性设置选项标题对应的内容，它的调用格式如下：
+$(selector).tabs({options});
+selector参数为选项卡整体外围元素，该元素包含选项卡标题与内容，options参数为tabs()方法的配置对象，通过该对象还能以ajax方式加载选项卡的内容。
+  $(function () {
+               $('#tabs').tabs({
+                    //设置各选项卡在切换时的动画效果
+                    fx: { opacity: 'toggle', height: 'toggle' },
+                    event: 'mousemove' //通过移动鼠标事件切换选项卡
+                })
+            });
+在tabs()方法的配置对象中，通过'fx'属性设置了选项卡切换时的效果，'event'属性设置鼠标也可以切换选项卡，因此，当鼠标在移动至两个选项卡标题时，对应内容以动画的效果自动切换。
+
+89.对话框插件——dialog
+对话框插件可以用动画的效果弹出多种类型的对话框，实现JavaScript代码中alert()和confirm()函数的功能，它的调用格式为：
+$(selector).dialog({options});
+selector参数为显示弹出对话框的元素，通常为<div>，options参数为方法的配置对象，在对象中可以设置对话框类型、'确定'、'取消'按钮执行的代码等。
+ function sys_Confirm(content) { //弹出询问信息窗口
+            $('#dialog-modal').dialog({
+                    height: 140,
+                    modal: true,
+                    title: '系统提示',
+                    hide: 'slide',
+                    buttons: {
+                        '确定': function () {
+                            $('#spnName').remove();
+                            $(this).dialog('close');
+                        },
+                        '取消': function () {
+                            $(this).dialog('close');
+                        }
+                    },
+                    open: function (event, ui) {
+                        $(this).html(');
+                        $(this).append('<p>' + content + '</p>');
+                    }
+                });
+            }调用对话框插件的dialog()方法，弹出询问对话框。
+
+90.菜单工具插件——menu
+菜单工具插件可以通过<ul>创建多级内联或弹出式菜单，支持通过键盘方向键控制菜单滑动，允许为菜单的各个选项添加图标，调用格式如下：
+$(selector).menu({options});
+selector参数为菜单列表中最外层<ul>元素，options为menu()方法的配置对象。
+ $('#menu').menu();
+ <ul><a>1</a>
+ <li>
+	 <ul><a>2</a>
+	 <li>
+	 </li>
+	  <li></li>
+	 </ul>
+ </li>
+  <li></li>
+ </ul>
+
+ 91.微调按钮插件——spinner
+ 微调按钮插件不仅能在文本框中直接输入数值，还可以通过点击输入框右侧的上下按钮修改输入框的值，还支持键盘的上下方向键改变输入值，调用格式如下：
+$(selector).spinner({options});
+selector参数为文本输入框元素，可选项options参数为spinner()方法的配置对象，在该对象中，可以设置输入的最大、最小值，获取改变值和设置对应事件。
+$('input').spinner({max: 10, min: 0});
+
+92.工具提示插件——tooltip
+工具提示插件可以定制元素的提示外观，提示内容支持变量、Ajax远程获取，还可以自定义提示内容显示的位置，它的调用格式如下：
+$(selector).tooltip({options});
+其中selector为需要显示提示信息的元素，可选项参数options为tooltip()方法的配置对象，在该对象中，可以设置提示信息的弹出、隐藏时的效果和所在位置。
+   $(function () {
+                $('#name').tooltip({
+                    show: {
+                        effect: 'slideDown',
+                        delay: 350
+                    },
+                    hide: {
+                        effect: 'explode',
+                        delay: 350
+                    },
+                    position: {
+                        my: 'left top',
+                        at: 'left bottom'
+                    }
+                });
+            });
+将文本输入框元素绑定提示插件，当鼠标在文本输入框中移动时，在指定的位置并以动画的效果显示对应的title属性值内容。
+
+93.获取浏览器的名称与版本信息
+在jQuery中，通过$.browser对象可以获取浏览器的名称和版本信息，如$.browser.chrome为true，表示当前为Chrome浏览器，$.browser.mozilla为true，表示当前为火狐浏览器，还可以通过$.browser.version方式获取浏览器版本信息。
+
+94.检测浏览器是否属于W3C盒子模型
+浏览器的盒子模型分为两类，一类为标准的w3c盒子模型，另一类为IE盒子模型，两者区别为在Width和Height这两个属性值中是否包含padding和border的值，w3c盒子模型不包含，IE盒子模型则包含，而在jQuery 中，可以通过$.support.boxModel对象返回的值，检测浏览器是否属于标准的w3c盒子模型。
+
+95.检测对象是否为空
+在jQuery中，可以调用名为$.isEmptyObject的工具函数，检测一个对象的内容是否为空，如果为空，则该函数返回true，否则，返回false值，调用格式如下：
+$.isEmptyObject(obj);
+其中，参数obj表示需要检测的对象名称。
+
+96.检测对象是否为原始对象
+调用名为$.isPlainObject的工具函数，能检测对象是否为通过{}或new Object()关键字创建的原始对象，如果是，返回true，否则，返回false值，调用格式为：
+$.isPlainObject (obj);
+其中，参数obj表示需要检测的对象名称。
+
+97.检测两个节点的包含关系
+调用名为$.contains的工具函数，能检测在一个DOM节点中是否包含另外一个DOM节点，如果包含，返回true，否则，返回false值，调用格式为：
+$.contains (container, contained);
+参数container表示一个DOM对象节点元素，用于包含其他节点的容器，contained是另一个DOM对象节点元素，用于被其他容器所包含。
+$.contains(node_a,node_b)；对象node_a 不包含 对象node_b
+
+98.字符串操作函数
+调用名为$.trim的工具函数，能删除字符串中左右两边的空格符，但该函数不能删除字符串中间的空格，调用格式为：
+$.trim (str);
+参数str表示需要删除左右两边空格符的字符串。
+
+99.URL操作函数
+调用名为$. param的工具函数，能使对象或数组按照key/value格式进行序列化编码，该编码后的值常用于向服务端发送URL请求，调用格式为：
+$. param (obj);
+参数obj表示需要进行序列化的对象，该对象也可以是一个数组，整个函数返回一个经过序列化编码后的字符串。
+param和serialize的区别是什么？前者是对任意的参数进行URL地址格式的转换，而后者仅属于form提交的数据转换。
+
+100.使用$.extend()扩展工具函数
+调用名为$. extend的工具函数，可以对原有的工具函数进行扩展，自定义类级别的jQuery插件，调用格式为：
+$. extend ({options});
+参数options表示自定义插件的函数内容。
+
+101.使用$.extend()扩展Object对象
+除使用$.extend扩展工具函数外，还可以扩展原有的Object对象，在扩展对象时，两个对象将进行合并，当存在相同属性名时，后者将覆盖前者，调用格式为：
+$. extend (obj1,obj2,…objN);
+参数obj1至objN表示需要合并的各个原有对象。
+调用$.extend()函数对两个已有的对象进行合并，相同属性的值后者覆盖前者var objNewInfo =$.extend(objInfo,objMess);
