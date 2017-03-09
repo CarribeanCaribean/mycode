@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>星星闪烁特效</title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{padding: 0;margin:0;}
+	</style>
+</head>
+<body>
+	<canvas id="canvas">
+		
+	</canvas>
+	<script src="../js/commonFunctions.js"></script>
+<script type="text/javascript">
+	var canvasWidth=1200;
+	var canvasHeight=600;
+	
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+
+	var image=new Image();
+	var x,y,m,num=60;
+	var star=new Array();
+	var time=10;
+	var moveX,moveY;
+
+	canvas.onmousemove=function(e){
+		moveY=e.clientY;
+		moveX=e.clientX;
+	}
+	canvas.width=canvasWidth;
+	canvas.height=canvasHeight;
+
+	getPosition ();
+	
+	setInterval(function() {
+		time=time+10;
+		image.src="../images/girl.jpg";
+		image.onload=function(){
+			context.clearRect(0,0,canvasWidth,canvasHeight);
+			drawBackground();
+			drawPic(image);
+			image.src="../images/star.png";
+			image.onload=function(){
+				if(context.isPointInPath(moveX,moveY)){
+					star.forEach( function(element, index) {
+						m=(m<6)?m+1:0;
+						var mx=star[index][0]+star[index][0]*time*0.0001;
+						var my=star[index][1]+star[index][1]*time*0.0001;
+						if(mx>860||my>460){
+							x=Math.random()*800+60;
+							y=Math.random()*400+60;
+							star[index]=[x,y];
+							return;
+						}
+						drawStar (image,m,mx,my);
+					});
+				}
+		}
+		context.restore();
+		}
+	},120)
+	
+	function getPosition () {
+		for(var i=0;i<=num;i++){
+			x=Math.random()*800+60;
+			y=Math.random()*400+60;
+			star[i]=[x,y];
+		}
+	}
+	function drawStar (image,m,x,y) {
+		context.save();
+		context.drawImage(image,m*7,0,7,7,x,y,7,7);
+		context.restore();
+	}
+	function drawPic(image){
+		context.save();
+		context.drawImage(image,60,60,800,400);
+		context.restore();
+	}
+	function drawBackground () {
+		context.save();
+		context.fillStyle="#1C226B";
+		context.fillRect(0,0,canvasWidth,canvasHeight);
+		context.rect(60,60,800,400);
+		context.restore();
+	}
+</script>
+</body>
+</html>
