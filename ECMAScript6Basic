@@ -1,0 +1,14 @@
+一、ECMAScript 6简介
+1、Babel转码器
+  --配置文件.babelrc。
+  --命令行转码babel-cli，Babel提供babel-cli工具，用于命令行转码。
+        babel-node，babel-cli工具自带一个babel-node命令，提供一个支持ES6的REPL环境。它支持Node的REPL环境的所有功能，而且可以直接运行ES6代码。
+  --babel-register，babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。
+  --babel-core，如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块。
+  --babel-polyfill，转换JavaScript新的API。
+  --Babel提供一个REPL在线编译器，可以在线将ES6代码转为ES5代码。转换后的代码，可以直接作为ES5代码插入网页运行。https://babeljs.io/repl/
+2、Traceur转码器
+  --Google公司的Traceur转码器，也可以将ES6代码转为ES5代码。
+  --Traceur允许将ES6代码直接插入网页。
+  --Traceur也提供一个在线编译器，可以在线将ES6代码转为ES5代码。转换后的代码，可以直接作为ES5代码插入网页运行。http://google.github.io/traceur-compiler/demo/repl.html#
+二、
